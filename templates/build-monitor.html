@@ -1,9 +1,13 @@
 <html>
 <head>
-<meta http-equiv="refresh" content="30" >
+    <meta http-equiv="refresh" content="30">
 </head>
-<body>
 
+{% if has_failing_build %}
+<body background="http://38.media.tumblr.com/tumblr_m9t31sX4ER1qgcra2o1_500.gif">
+{% else %}
+<body>
+{% endif %}
 <p>
     <strong>API</strong>
     <br/>
@@ -57,6 +61,7 @@
 </p>
 
 
-</body>
+</
+>
 
 </html>
