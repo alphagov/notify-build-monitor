@@ -1,5 +1,8 @@
-{% macro status_block(ok, text) %}
-  <div class='status-block {{'good' if ok else 'bad'}}'>{{ text }}</div>
+{% macro status_block(ok, environment, app) %}
+  <div class='status-block {{'good' if ok else 'bad'}}'>
+    <span>{{ app }}</span>
+    <span>{{ environment }}</span>
+  </div>
 {% endmacro %}
 <html>
   <head>
@@ -7,9 +10,9 @@
      <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css">
       <style>
         body, html {
-          margin: 0;
+          margin: 12px 0 0 0;
           font-size: 48px;
-          background: #000;
+          background: #333;
           font-family: nta, sans-serif;
           font-weight: bold;
         }
@@ -17,29 +20,47 @@
           text-align: left;
           color: white;
           opacity: 0.8;
-          padding: 16px 20px ;
-          margin: 24px;
-          border: 9px solid rgba(255, 255, 255, 0.9);
-          border-radius: 16px;
+          padding: 12px 96px 4px;
+          margin: 0 0 24px 0;
           text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
           letter-spacing: 0.03em;
+          position: relative;
         }
-        .good {
+        .status-block span {
+          width: 25%;
+          display: inline-block;
+        }
+        .status-block span + span {
+          color: #000;
+        }
+        .status-block:before {
+          content: '';
+          position: absolute;
+          width: 48px;
+          height: 48px;
+          left: 24px;
+          top: 16px;
+          border-radius: 100%;
+        }
+        .good:before {
           background: #5c9317;
-          box-shadow: 0 0 0 3px #5c9317;
         }
         .bad {
           background: #B10E1E;
-          box-shadow: 0 0 0 3px #B10E1E;
+          box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+        .bad:before {
+          background: #222;
+          box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
         }
       </style>
   </head>
 
   <body>
-    {{ status_block(preview_admin, "Preview admin") }}
-    {{ status_block(preview_api, "Preview API") }}
-    {{ status_block(staging_admin, "Staging admin") }}
-    {{ status_block(staging_api, "Staging API") }}
+    {{ status_block(preview_admin, "Preview", "Admin") }}
+    {{ status_block(False, "Preview", "API") }} <!-- preview_api -->
+    {{ status_block(staging_admin, "Staging", "Admin") }}
+    {{ status_block(staging_api, "Staging", "API") }}
   </body>
 
 </html>
