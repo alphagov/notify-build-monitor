@@ -14,7 +14,7 @@ def status():
     return render_template(
         'build-monitor.html',
         preview_admin=is_up("https://www.notify.works/_status"),
-        preview_api=is_up("https://api.notify.works/status/_status"),
+        preview_api=is_up("https://api.notify.works/_status"),
         staging_admin=is_up("https://staging.notifications.service.gov.uk/_status"),
         staging_api=is_up("https://staging-api.notifications.service.gov.uk/status/_status")
     )
