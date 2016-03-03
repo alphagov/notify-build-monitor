@@ -4,31 +4,33 @@
 <html>
   <head>
       <meta http-equiv="refresh" content="30">
+     <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css">
       <style>
         body, html {
           margin: 0;
           font-size: 48px;
           background: #000;
-          transform: scaleY(1.3);
+          font-family: nta, sans-serif;
+          font-weight: bold;
         }
         .status-block {
-          text-align: center;
-          font-family: sans-serif;
+          text-align: left;
           color: white;
           opacity: 0.8;
-          width: 150%;
-          padding: 12px;
-          margin-bottom: 12px;
-          transform: skew(15deg, 15deg);
-          position: relative;
-          top: 25%;
-          left: -25%
+          padding: 16px 20px ;
+          margin: 24px;
+          border: 9px solid rgba(255, 255, 255, 0.9);
+          border-radius: 16px;
+          text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+          letter-spacing: 0.03em;
         }
         .good {
           background: #5c9317;
+          box-shadow: 0 0 0 3px #5c9317;
         }
         .bad {
           background: #B10E1E;
+          box-shadow: 0 0 0 3px #B10E1E;
         }
       </style>
   </head>
