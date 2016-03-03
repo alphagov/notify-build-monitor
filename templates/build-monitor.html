@@ -1,0 +1,60 @@
+<html>
+
+<body>
+
+<p>
+    <strong>API</strong>
+    <br/>
+    <img src="https://travis-ci.org/alphagov/notifications-api.svg"/>
+</p>
+
+<p>
+    <strong>ADMIN</strong>
+    <br/>
+    <img src="https://travis-ci.org/alphagov/notifications-admin.svg"/>
+</p>
+
+<p>
+    <strong>Preview ADMIN</strong>
+    <br/>
+    {% if preview_admin %}
+    UP
+    {% else %}
+    DOWN
+    {% endif %}
+</p>
+
+<p>
+    <strong>Preview API</strong>
+    <br/>
+    {% if preview_api %}
+    UP
+    {% else %}
+    DOWN
+    {% endif %}
+</p>
+
+<p>
+    <strong>Staging ADMIN</strong>
+    <br/>
+    {% if staging_admin %}
+    UP
+    {% else %}
+    DOWN
+    {% endif %}
+</p>
+
+<p>
+    <strong>Staging API</strong>
+    <br/>
+    {% if staging_api %}
+    UP
+    {% else %}
+    DOWN
+    {% endif %}
+</p>
+
+
+</body>
+
+</html>
