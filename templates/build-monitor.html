@@ -1,64 +1,45 @@
+{% macro status_block(ok, text) %}
+  <div class='status-block {{'good' if ok else 'bad'}}'>{{ text }}</div>
+{% endmacro %}
 <html>
-<head>
-    <meta http-equiv="refresh" content="30">
-</head>
+  <head>
+      <meta http-equiv="refresh" content="30">
+     <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css">
+      <style>
+        body, html {
+          margin: 0;
+          font-size: 48px;
+          background: #000;
+          font-family: nta, sans-serif;
+          font-weight: bold;
+        }
+        .status-block {
+          text-align: left;
+          color: white;
+          opacity: 0.8;
+          padding: 16px 20px ;
+          margin: 24px;
+          border: 9px solid rgba(255, 255, 255, 0.9);
+          border-radius: 16px;
+          text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+          letter-spacing: 0.03em;
+        }
+        .good {
+          background: #5c9317;
+          box-shadow: 0 0 0 3px #5c9317;
+        }
+        .bad {
+          background: #B10E1E;
+          box-shadow: 0 0 0 3px #B10E1E;
+        }
+      </style>
+  </head>
 
-{% if has_failing_build %}
-<body background="http://38.media.tumblr.com/tumblr_m9t31sX4ER1qgcra2o1_500.gif">
-{% else %}
-<body>
-{% endif %}
-<p>
-    <strong>API</strong>
-    <br/>
-    <img src="https://travis-ci.org/alphagov/notifications-api.svg"/>
-</p>
+  <body>
+    {{ status_block(preview_admin, "Preview admin") }}
+    {{ status_block(preview_api, "Preview API") }}
+    {{ status_block(staging_admin, "Staging admin") }}
+    {{ status_block(staging_api, "Staging API") }}
+  </body>
 
-<p>
-    <strong>ADMIN</strong>
-    <br/>
-    <img src="https://travis-ci.org/alphagov/notifications-admin.svg"/>
-</p>
-
-<p>
-    <strong>Preview ADMIN</strong>
-    <br/>
-    {% if preview_admin %}
-    UP
-    {% else %}
-    DOWN
-    {% endif %}
-</p>
-
-<p>
-    <strong>Preview API</strong>
-    <br/>
-    {% if preview_api %}
-    UP
-    {% else %}
-    DOWN
-    {% endif %}
-</p>
-
-<p>
-    <strong>Staging ADMIN</strong>
-    <br/>
-    {% if staging_admin %}
-    UP
-    {% else %}
-    DOWN
-    {% endif %}
-</p>
-
-<p>
-    <strong>Staging API</strong>
-    <br/>
-    {% if staging_api %}
-    UP
-    {% else %}
-    DOWN
-    {% endif %}
-</p>
-
-</body>
 </html>
