@@ -10,7 +10,7 @@
      <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css">
       <style>
         body, html {
-          margin: 12px 0 0 0;
+          margin: 6px 0 0 0;
           font-size: 48px;
           background: #111;
           font-family: nta, sans-serif;
@@ -22,7 +22,7 @@
           opacity: 0.8;
           padding: 12px 96px 4px;
           margin: 0 0 24px 0;
-          text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
           letter-spacing: 0.03em;
           position: relative;
         }
@@ -44,7 +44,9 @@
           border-radius: 100%;
         }
         .good:before {
-          background: #5c9317;
+          background: #447a00;
+          box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+          animation: greenToBlack 30s ease forwards;
         }
         .bad {
           background: #B10E1E;
@@ -54,8 +56,22 @@
           opacity: 0.8;
         }
         .bad:before {
-          background: #222;
-          box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+          background: #111;
+          box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes greenToBlack {
+            0% {
+              background: #335b00;
+            }
+            2% {
+              background: #79d900;
+            }
+            66% {
+              background: #376200;
+            }
+            100% {
+              background: #335b00;
+            }
         }
       </style>
   </head>
