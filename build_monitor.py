@@ -16,7 +16,6 @@ def status():
     staging_api = is_up("https://staging-api.notifications.service.gov.uk/status/_status")
     has_failing_build = False
 
-    print(preview_api)
     if not preview_admin or not preview_api or not staging_admin or not staging_api:
         has_failing_build = True
 
