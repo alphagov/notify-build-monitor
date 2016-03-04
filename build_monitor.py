@@ -18,7 +18,7 @@ def status():
     preview_admin = is_up("https://www.notify.works/_status")
     preview_api = is_up("https://api.notify.works/_status")
     staging_admin = is_up("https://staging.notifications.service.gov.uk/_status")
-    staging_api = is_up("https://staging-api.notifications.service.gov.uk/status/_status")
+    staging_api = is_up("https://staging-api.notifications.service.gov.uk/_status")
     has_failing_build = False
 
     if not preview_admin or not preview_api or not staging_admin or not staging_api:
