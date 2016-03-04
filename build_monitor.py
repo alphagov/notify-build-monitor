@@ -19,18 +19,17 @@ def status():
     preview_api = is_up("https://api.notify.works/_status")
     staging_admin = is_up("https://staging.notifications.service.gov.uk/_status")
     staging_api = is_up("https://staging-api.notifications.service.gov.uk/_status")
-    has_failing_build = False
-
-    if not preview_admin or not preview_api or not staging_admin or not staging_api:
-        has_failing_build = True
 
     return render_template(
         'build-monitor.html',
-        has_failing_build=has_failing_build,
         preview_admin=preview_admin,
         preview_api=preview_api,
         staging_admin=staging_admin,
-        staging_api=staging_api
+        staging_api=staging_api,
+        master_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/master'),
+        master_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/master'),
+        staging_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/staging'),
+        staging_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/staging')
     )
 
 
@@ -40,6 +39,15 @@ def is_up(url):
         url
     ).status_code
     return response == 200
+
+
+def master(url):
+    response = request(
+        "GET",
+        url,
+        headers={'Accept': 'application/vnd.travis-ci.2+json'}
+    )
+    return response.json()['branch']['state'] == 'passed'
 
 
 if __name__ == '__main__':
