@@ -13,8 +13,8 @@
 {% endmacro %}
 <html>
   <head>
-      <meta http-equiv="refresh" content="30">
-     <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css">
+    <meta http-equiv="refresh" content="30">
+    <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css">
       <style>
         body, html {
           margin: 6px 0 0 0;
@@ -114,12 +114,12 @@
   <body>
     {{ status_block(master_api_build, "Master Build", "API") }}
     {{ status_block(master_admin_build, "Master Build", "Admin") }}
-    {{ status_block(preview_admin, "Preview", "Admin") }}
     {{ status_block(preview_api, "Preview", "API") }}
+    {{ status_block(preview_admin, "Preview", "Admin") }}
     {{ status_block(staging_api_build, "Staging Build", "API") }}
     {{ status_block(staging_admin_build, "Staging Build", "Admin") }}
-    {{ status_block(staging_admin, "Staging", "Admin") }}
     {{ status_block(staging_api, "Staging", "API") }}
+    {{ status_block(staging_admin, "Staging", "Admin") }}
   </body>
 
 </html>
