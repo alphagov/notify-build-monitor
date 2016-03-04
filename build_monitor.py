@@ -47,7 +47,7 @@ def master(url):
         url,
         headers={'Accept': 'application/vnd.travis-ci.2+json'}
     )
-    return response.json()['branch']['state'] == 'passed'
+    return response.json()['branch']['state'] in ["", 'passed']
 
 
 if __name__ == '__main__':
