@@ -1,8 +1,10 @@
 import os
+import json
 from flask import (
     Flask,
-    render_template
+    render_template,
 )
+from flask import request as flask_request
 from requests import request
 
 app = Flask(__name__)
@@ -25,6 +27,36 @@ def status():
         master_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/master'),
         staging_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/staging'),
         staging_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/staging')
+    )
+
+
+@app.route('/deploys/<repo>/<base>...<target>.svg', methods=['GET'])
+def deploys(repo, base, target):
+
+    prefix = flask_request.args.get('prefix', '')
+
+    response = request(
+        "GET",
+        'https://api.github.com/repos/alphagov/{}/compare/{}...{}'.format(repo, base, target),
+        headers={
+            'Authorization': 'token {}'.format(os.environ['GITHUB_API_KEY'])
+        }
+    )
+
+    response = response.json()
+    commits_ahead = response.get('ahead_by')
+
+    merges_ahead = len([
+        commit for commit in response.get('commits') if len(commit.get('parents')) > 1
+    ])
+
+    return render_template(
+        'deploy.svg',
+        merges_ahead=merges_ahead,
+        target=target,
+        base=base,
+        prefix=prefix,
+        background='#B10E1E' if merges_ahead > 1 else '#F47738' if merges_ahead == 1 else '#335b00'
     )
 
 
