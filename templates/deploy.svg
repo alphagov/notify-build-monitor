@@ -12,7 +12,12 @@
   <rect width="100%" height="100%" fill="{{ background }}" rx="3" ry="3" />
   <rect width="100%" height="50%" fill="#333" rx="3" ry="3" />
 
-  <text x="4" y="13" font-size="12" text-anchor="start" fill="white">{{ prefix }} {{ target }}</text>
-  <text x="4" y="33" font-size="12" text-anchor="start" fill="white">{{ merges_ahead }} merges behind {{ base }}</text>
+  {% if merges_ahead %}
+    <text x="4" y="13" font-size="12" text-anchor="start" fill="white">{{ prefix }} {{ target }}</text>
+    <text x="4" y="33" font-size="12" text-anchor="start" fill="white">{{ merges_ahead }} merges behind {{ base }}</text>
+  {% else %}
+    <text x="4" y="13" font-size="12" text-anchor="start" fill="white">{{ target }}</text>
+    <text x="4" y="33" font-size="12" text-anchor="start" fill="white">Up to date with {{ base }}</text>
+  {% endif %}
 
 </svg>
