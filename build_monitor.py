@@ -9,11 +9,6 @@ from requests import request
 app = Flask(__name__)
 
 
-@app.route('/lag')
-def deploy_lag():
-    return render_template('deploy-lag-radiator.html')
-
-
 @app.route('/', methods=['GET'])
 def status():
     preview_admin = is_up("https://www.notify.works/_status")
