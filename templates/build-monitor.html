@@ -105,6 +105,11 @@
               background: #335b00;
             }
         }
+        h2 {
+          font-size: 48px;
+          font-weight: bold;
+          margin-top: 24px;
+        }
       </style>
   </head>
 
@@ -117,6 +122,14 @@
     {{ status_block(staging_admin_build, "Staging Build", "Admin") }}
     {{ status_block(staging_api, "Staging", "API") }}
     {{ status_block(staging_admin, "Staging", "Admin") }}
+
+    <h2>Admin</h2>
+    <img src="/deploys/notifications-admin/master...staging.svg" />
+    <img src="/deploys/notifications-admin/staging...live.svg" />
+
+    <h2>API</h2>
+    <img src="/deploys/notifications-api/master...staging.svg" />
+    <img src="/deploys/notifications-api/staging...live.svg" />
   </body>
 
 </html>
