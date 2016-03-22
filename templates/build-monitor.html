@@ -22,6 +22,7 @@
           background: #111;
           font-family: nta, sans-serif;
           font-weight: bold;
+          color: white;
         }
         .status-block {
           text-align: left;
@@ -105,10 +106,9 @@
               background: #335b00;
             }
         }
-        h2 {
-          font-size: 48px;
-          font-weight: bold;
-          margin-top: 24px;
+        img {
+          margin: 24px;
+          width: 400px;
         }
       </style>
   </head>
@@ -123,13 +123,11 @@
     {{ status_block(staging_api, "Staging", "API") }}
     {{ status_block(staging_admin, "Staging", "Admin") }}
 
-    <h2>Admin</h2>
-    <img src="/deploys/notifications-admin/master...staging.svg?prefix=Deploy%20to" />
-    <img src="/deploys/notifications-admin/staging...live.svg?prefix=Deploy%20to" />
-
-    <h2>API</h2>
-    <img src="/deploys/notifications-api/master...staging.svg?prefix=Deploy%20to" />
-    <img src="/deploys/notifications-api/staging...live.svg?prefix=Deploy%20to" />
+    <a href="https://github.com/alphagov/notifications-admin/compare/staging...master?expand=1"><img src="/deploys/notifications-admin/master...staging.svg?prefix=Deploy%20admin%20to" /></a>
+    <a href="https://github.com/alphagov/notifications-admin/compare/staging...live?expand=1"><img src="/deploys/notifications-admin/staging...live.svg?prefix=Deploy%20admin%20to" /></a>
+    <br />
+    <a href="https://github.com/alphagov/notifications-api/compare/staging...master?expand=1"><img src="/deploys/notifications-api/master...staging.svg?prefix=Deploy%20API%20to" /></a>
+    <a href="https://github.com/alphagov/notifications-api/compare/staging...live?expand=1"><img src="/deploys/notifications-api/staging...live.svg?prefix=Deploy%20API%20to" /></a>
   </body>
 
 </html>

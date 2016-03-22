@@ -3,6 +3,7 @@ import json
 from flask import (
     Flask,
     render_template,
+    make_response
 )
 from flask import request as flask_req
 from requests import request
@@ -50,7 +51,7 @@ def deploys(repo, base, target):
         commit for commit in response.get('commits') if len(commit.get('parents')) > 1
     ])
 
-    return render_template(
+    svg = render_template(
         'deploy.svg',
         merges_ahead=merges_ahead,
         target=target,
@@ -58,6 +59,11 @@ def deploys(repo, base, target):
         prefix=prefix,
         background='#B10E1E' if merges_ahead > 1 else '#F47738' if merges_ahead == 1 else '#335b00'
     )
+
+    svg_response = make_response(svg)
+    svg_response.headers["Content-Type"] = "image/svg+xml"
+
+    return svg_response
 
 
 @app.route('/notifications/sms/mmg', methods=['POST'])
