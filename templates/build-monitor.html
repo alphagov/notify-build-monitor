@@ -118,16 +118,14 @@
     {{ status_block(master_admin_build, "Master Build", "Admin") }}
     {{ status_block(preview_api, "Preview", "API") }}
     {{ status_block(preview_admin, "Preview", "Admin") }}
-    {{ status_block(staging_api_build, "Staging Build", "API") }}
-    {{ status_block(staging_admin_build, "Staging Build", "Admin") }}
+    {{ status_block(staging_api_build, "Staging build", "API") }}
+    {{ status_block(staging_admin_build, "Staging build", "Admin") }}
     {{ status_block(staging_api, "Staging", "API") }}
     {{ status_block(staging_admin, "Staging", "Admin") }}
-
-    <a href="https://github.com/alphagov/notifications-admin/compare/staging...master?expand=1"><img src="/deploys/notifications-admin/master...staging.svg?prefix=Deploy%20admin%20to" /></a>
-    <a href="https://github.com/alphagov/notifications-admin/compare/staging...live?expand=1"><img src="/deploys/notifications-admin/staging...live.svg?prefix=Deploy%20admin%20to" /></a>
-    <br />
-    <a href="https://github.com/alphagov/notifications-api/compare/staging...master?expand=1"><img src="/deploys/notifications-api/master...staging.svg?prefix=Deploy%20API%20to" /></a>
-    <a href="https://github.com/alphagov/notifications-api/compare/staging...live?expand=1"><img src="/deploys/notifications-api/staging...live.svg?prefix=Deploy%20API%20to" /></a>
+    {{ status_block(live_api_build, "Live build", "API") }}
+    {{ status_block(live_admin_build, "Live build", "Admin") }}
+    {{ status_block(live_api, "Live", "API") }}
+    {{ status_block(live_admin, "Live", "Admin") }}
   </body>
 
 </html>
