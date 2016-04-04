@@ -1,3 +1,4 @@
+import logging
 import os
 from flask import (
     Flask,
@@ -6,6 +7,7 @@ from flask import (
 from requests import request
 
 app = Flask(__name__)
+logger = logging.getLogger(__name__)
 
 
 @app.route('/lag')
@@ -31,6 +33,11 @@ def status():
         staging_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/staging'),
         staging_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/staging')
     )
+
+
+@app.route('/notifications/sms/mmg', methods=['POST'])
+def temp_mmg_delivery_receipt():
+    logger.info('Delivery receipt from mmg: {}'.format(request.json))
 
 
 def is_up(url):
