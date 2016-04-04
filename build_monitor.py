@@ -37,6 +37,7 @@ def status():
 
 @app.route('/notifications/sms/mmg', methods=['POST'])
 def temp_mmg_delivery_receipt():
+    print('Posted delivery receipt from mmg: {}'.format(request.json)
     logger.info('Delivery receipt from mmg: {}'.format(request.json))
 
 
