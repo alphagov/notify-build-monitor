@@ -1,8 +1,8 @@
 import os
 from flask import (
     Flask,
-    render_template
-)
+    render_template,
+    jsonify)
 from flask import request as flask_req
 from requests import request
 
@@ -37,7 +37,7 @@ def status():
 @app.route('/notifications/sms/mmg', methods=['POST'])
 def temp_mmg_delivery_receipt():
     print('Posted delivery receipt from mmg: {}'.format(flask_req.json))
-
+    return jsonify('success')
 
 def is_up(url):
     response = request(
