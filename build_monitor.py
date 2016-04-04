@@ -3,6 +3,7 @@ from flask import (
     Flask,
     render_template
 )
+from flask import request as flask_req
 from requests import request
 
 app = Flask(__name__)
@@ -35,7 +36,7 @@ def status():
 
 @app.route('/notifications/sms/mmg', methods=['POST'])
 def temp_mmg_delivery_receipt():
-    print('Posted delivery receipt from mmg: {}'.format(request.json))
+    print('Posted delivery receipt from mmg: {}'.format(flask_req.json))
 
 
 def is_up(url):
@@ -57,4 +58,4 @@ def master(url):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 6001))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
