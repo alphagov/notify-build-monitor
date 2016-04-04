@@ -1,4 +1,3 @@
-import logging
 import os
 from flask import (
     Flask,
@@ -7,7 +6,6 @@ from flask import (
 from requests import request
 
 app = Flask(__name__)
-logger = logging.getLogger(__name__)
 
 
 @app.route('/lag')
@@ -38,7 +36,6 @@ def status():
 @app.route('/notifications/sms/mmg', methods=['POST'])
 def temp_mmg_delivery_receipt():
     print('Posted delivery receipt from mmg: {}'.format(request.json))
-    logger.info('Delivery receipt from mmg: {}'.format(request.json))
 
 
 def is_up(url):
