@@ -5,7 +5,7 @@ from flask import (
     render_template,
     make_response
 )
-from flask import request as flask_request
+from flask import request as flask_req
 from requests import request
 
 app = Flask(__name__)
@@ -34,7 +34,7 @@ def status():
 @app.route('/deploys/<repo>/<base>...<target>.svg', methods=['GET'])
 def deploys(repo, base, target):
 
-    prefix = flask_request.args.get('prefix', '')
+    prefix = flask_req.args.get('prefix', '')
 
     response = request(
         "GET",
@@ -43,6 +43,7 @@ def deploys(repo, base, target):
             'Authorization': 'token {}'.format(os.environ['GITHUB_API_KEY'])
         }
     )
+    response = response.json()
 
     response = response.json()
     commits_ahead = response.get('ahead_by')
@@ -64,6 +65,11 @@ def deploys(repo, base, target):
     svg_response.headers["Content-Type"] = "image/svg+xml"
 
     return svg_response
+
+
+@app.route('/notifications/sms/mmg', methods=['POST'])
+def temp_mmg_delivery_receipt():
+    print('Posted delivery receipt from mmg: {}'.format(flask_req.json))
 
 
 def is_up(url):
@@ -90,4 +96,4 @@ def master(url):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 6001))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
