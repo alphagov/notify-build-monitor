@@ -2,36 +2,70 @@ import os
 from flask import (
     Flask,
     render_template,
-    jsonify)
+    jsonify,
+    make_response
+)
 from flask import request as flask_req
 from requests import request
 
 app = Flask(__name__)
 
 
-@app.route('/lag')
-def deploy_lag():
-    return render_template('deploy-lag-radiator.html')
-
-
 @app.route('/', methods=['GET'])
 def status():
-    preview_admin = is_up("https://www.notify.works/_status")
-    preview_api = is_up("https://api.notify.works/_status")
-    staging_admin = is_up("https://staging.notifications.service.gov.uk/_status")
-    staging_api = is_up("https://staging-api.notifications.service.gov.uk/_status")
 
     return render_template(
         'build-monitor.html',
-        preview_admin=preview_admin,
-        preview_api=preview_api,
-        staging_admin=staging_admin,
-        staging_api=staging_api,
+        preview_admin=is_up("https://www.notify.works/_status"),
+        preview_api=is_up("https://api.notify.works/_status"),
+        staging_admin=is_up("https://staging.notifications.service.gov.uk/_status"),
+        staging_api=is_up("https://staging-api.notifications.service.gov.uk/_status"),
+        live_admin=is_up("https://www.notifications.service.gov.uk/_status"),
+        live_api=is_up("https://api.notifications.service.gov.uk/_status"),
         master_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/master'),
         master_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/master'),
         staging_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/staging'),
-        staging_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/staging')
+        staging_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/staging'),
+        live_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/live'),
+        live_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/live')
     )
+
+
+@app.route('/deploys/<repo>/<base>...<target>.svg', methods=['GET'])
+def deploys(repo, base, target):
+
+    prefix = flask_req.args.get('prefix', '')
+
+    response = request(
+        "GET",
+        'https://api.github.com/repos/alphagov/{}/compare/{}...{}'.format(repo, base, target),
+        headers={
+            'Authorization': 'token {}'.format(os.environ['GITHUB_API_KEY'])
+        }
+    )
+    response = response.json()
+
+    response = response.json()
+    commits_ahead = response.get('ahead_by')
+
+    merges_ahead = len([
+        commit for commit in response.get('commits') if len(commit.get('parents')) > 1
+    ])
+
+    svg = render_template(
+        'deploy.svg',
+        merges_ahead=merges_ahead,
+        target=target,
+        base=base,
+        prefix=prefix,
+        background='#B10E1E' if merges_ahead > 1 else '#F47738' if merges_ahead == 1 else '#335b00'
+    )
+
+    svg_response = make_response(svg)
+    svg_response.headers["Content-Type"] = "image/svg+xml"
+
+    return svg_response
+
 
 
 @app.route('/notifications/sms/mmg', methods=['GET'])
@@ -61,7 +95,12 @@ def master(url):
         url,
         headers={'Accept': 'application/vnd.travis-ci.2+json'}
     )
-    return response.json()['branch']['state'] in ["", 'passed']
+    status = response.json()['branch']['state']
+    if status == "":
+        return None
+    if status == "passed":
+        return True
+    return False
 
 
 if __name__ == '__main__':

@@ -1,13 +1,20 @@
 {% macro status_block(ok, environment, app) %}
-  <div class='status-block {{'good' if ok else 'bad'}}'>
+  <div class='status-block {% if ok == None -%}
+      unknown
+    {%- elif ok -%}
+      good
+    {%- else -%}
+      bad
+    {%- endif -%}
+  '>
     <span>{{ app }}</span>
     <span>{{ environment }}</span>
   </div>
 {% endmacro %}
 <html>
   <head>
-      <meta http-equiv="refresh" content="30">
-     <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css">
+    <meta http-equiv="refresh" content="30">
+    <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css">
       <style>
         body, html {
           margin: 6px 0 0 0;
@@ -15,6 +22,7 @@
           background: #111;
           font-family: nta, sans-serif;
           font-weight: bold;
+          color: white;
         }
         .status-block {
           text-align: left;
@@ -31,8 +39,8 @@
           display: inline-block;
         }
         .status-block span + span {
-          opacity: 0.4;
           text-transform: lowercase;
+          font-weight: normal;
         }
         .status-block:before {
           content: '';
@@ -44,7 +52,7 @@
           border-radius: 100%;
         }
         .good:before {
-          background: #447a00;
+          background: #335b00;
           box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
           animation: greenToBlack 30s ease forwards;
         }
@@ -55,13 +63,13 @@
           animation-delay: 0.8s;
         }
         .good:nth-of-type(3):before {
-          animation-delay: 2.4s;
+          animation-delay: 0.5s;
         }
         .good:nth-of-type(4):before {
-          animation-delay: 3s;
+          animation-delay: 1.5s;
         }
         .good:nth-of-type(5):before {
-          animation-delay: 3.6s;
+          animation-delay: 1s;
         }
         .good:nth-of-type(6):before {
           animation-delay: 0.6s;
@@ -72,12 +80,13 @@
         .good:nth-of-type(8):before {
           animation-delay: 1.2s;
         }
+        .unknown:before {
+          background: #F47738;
+          box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
         .bad {
           background: #B10E1E;
           box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-        }
-        .bad span + span {
-          opacity: 0.8;
         }
         .bad:before {
           background: #111;
@@ -97,18 +106,26 @@
               background: #335b00;
             }
         }
+        img {
+          margin: 24px;
+          width: 40%;
+        }
       </style>
   </head>
 
   <body>
     {{ status_block(master_api_build, "Master Build", "API") }}
     {{ status_block(master_admin_build, "Master Build", "Admin") }}
-    {{ status_block(preview_admin, "Preview", "Admin") }}
     {{ status_block(preview_api, "Preview", "API") }}
-    {{ status_block(staging_api_build, "Staging Build", "API") }}
-    {{ status_block(staging_admin_build, "Staging Build", "Admin") }}
-    {{ status_block(staging_admin, "Staging", "Admin") }}
+    {{ status_block(preview_admin, "Preview", "Admin") }}
+    {{ status_block(staging_api_build, "Staging build", "API") }}
+    {{ status_block(staging_admin_build, "Staging build", "Admin") }}
     {{ status_block(staging_api, "Staging", "API") }}
+    {{ status_block(staging_admin, "Staging", "Admin") }}
+    {{ status_block(live_api_build, "Live build", "API") }}
+    {{ status_block(live_admin_build, "Live build", "Admin") }}
+    {{ status_block(live_api, "Live", "API") }}
+    {{ status_block(live_admin, "Live", "Admin") }}
   </body>
 
 </html>
