@@ -37,6 +37,7 @@ def status():
 @app.route('/notifications/sms/mmg', methods=['GET'])
 def temp_mmg_delivery_receipt():
     print('Posted delivery receipt from mmg: {}'.format(flask_req.data))
+    print('Posted delivery receipt from mmg: {}'.format(flask_req.json))
     print('Posted delivery receipt from mmg ID: {}, MSISDN: {}, Delivery: {}, CID: {}'
           .format(flask_req.args.get('ID', None),
                   flask_req.args.get('MSISDN', None),
