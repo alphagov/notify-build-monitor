@@ -37,7 +37,14 @@ def status():
 @app.route('/notifications/sms/mmg', methods=['POST'])
 def temp_mmg_delivery_receipt():
     print('Posted delivery receipt from mmg: {}'.format(flask_req.json))
+    print('Posted delivery receipt from mmg ID: {}, MSISDN: {}, Delivery: {}, CID: {}'
+          .format(flask_req.args.get('ID', None),
+                  flask_req.args.get('MSISDN', None),
+                  flask_req.args.get('Delivery', None),
+                  flask_req.args.get('CID', None)))
+
     return jsonify(result='success'), 200
+
 
 def is_up(url):
     response = request(
