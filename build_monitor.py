@@ -44,8 +44,6 @@ def deploys(repo, base, target):
         }
     )
     response = response.json()
-
-    response = response.json()
     commits_ahead = response.get('ahead_by')
 
     merges_ahead = len([
