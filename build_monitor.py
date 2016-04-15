@@ -52,7 +52,7 @@ def deploys(repo, base, target):
 
     svg = render_template(
         'deploy.svg',
-        merges_ahead=merges_ahead,
+        merges_ahead=merges_ahead - 1,  # we shouldn’t count the final merge from parent branch
         target=target,
         base=base,
         prefix=prefix,
