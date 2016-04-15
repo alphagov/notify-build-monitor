@@ -48,11 +48,11 @@ def deploys(repo, base, target):
 
     merges_ahead = len([
         commit for commit in response.get('commits') if len(commit.get('parents')) > 1
-    ])
+    ]) - 1  # we shouldn’t count the final merge from parent branch
 
     svg = render_template(
         'deploy.svg',
-        merges_ahead=merges_ahead - 1,  # we shouldn’t count the final merge from parent branch
+        merges_ahead=merges_ahead,
         target=target,
         base=base,
         prefix=prefix,
