@@ -70,7 +70,7 @@ def temp_mmg_delivery_receipt():
     return jsonify(result='success'), 200
 
 @app.route('/notifications/sms/mmg/response', methods=['POST'])
-def temp_mmg_delivery_receipt():
+def temp_mmg_responses():
     print('Posted delivery receipt from mmg: {}'.format(flask_req.form))
     print('Posted delivery receipt from mmg: {}'.format(flask_req.data))
     return jsonify(result='success'), 200
