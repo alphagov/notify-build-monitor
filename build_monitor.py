@@ -17,19 +17,11 @@ def deploy_lag():
 def status():
     preview_admin = is_up("https://www.notify.works/_status")
     preview_api = is_up("https://api.notify.works/_status")
-    staging_admin = is_up("https://staging.notifications.service.gov.uk/_status")
-    staging_api = is_up("https://staging-api.notifications.service.gov.uk/_status")
 
     return render_template(
         'build-monitor.html',
         preview_admin=preview_admin,
-        preview_api=preview_api,
-        staging_admin=staging_admin,
-        staging_api=staging_api,
-        master_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/master'),
-        master_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/master'),
-        staging_api_build=master('https://api.travis-ci.org/repos/alphagov/notifications-api/branches/staging'),
-        staging_admin_build=master('https://api.travis-ci.org/repos/alphagov/notifications-admin/branches/staging')
+        preview_api=preview_api
     )
 
 
